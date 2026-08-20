@@ -1,0 +1,12 @@
+{
+  "name": "flowmind",
+  "category": "Agentic",
+  "architecture": "actor model with mailboxes",
+  "interface": "library + examples \u2014 python examples/build_workflow.py",
+  "testing": "deterministic scheduler tests",
+  "demo_cmd": "python examples/build_workflow.py",
+  "test_cmd": "python -m pytest tests -q",
+  "entry_points": [
+    "examples/build_workflow.py"
+  ]
+}
