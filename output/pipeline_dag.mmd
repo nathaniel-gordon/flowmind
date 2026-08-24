@@ -1,0 +1,15 @@
+flowchart TD
+    extract["extract"]
+    profile["profile"]
+    quarantine["quarantine: steps.profile.output.quality_ok == False"]
+    load["load: steps.profile.output.quality_ok == True"]
+    summarize(["summarize"])
+    report["report"]
+    extract --> profile
+    extract --> quarantine
+    profile --> quarantine
+    extract --> load
+    profile --> load
+    load --> summarize
+    quarantine --> summarize
+    load --> report

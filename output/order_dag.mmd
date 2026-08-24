@@ -1,0 +1,14 @@
+flowchart TD
+    validate["validate"]
+    reserve["reserve"]
+    charge["charge"]
+    fraud_review{{"fraud_review: steps.validate.output.needs_review == True"}}
+    ship["ship"]
+    notify["notify"]
+    validate --> reserve
+    validate --> charge
+    charge --> fraud_review
+    reserve --> ship
+    charge --> ship
+    fraud_review --> ship
+    ship --> notify

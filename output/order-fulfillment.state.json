@@ -1,0 +1,61 @@
+{
+  "workflow": "order-fulfillment",
+  "steps": {
+    "validate": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "ok": true,
+        "total": 1450.0,
+        "items": 3,
+        "needs_review": true
+      },
+      "error": null
+    },
+    "reserve": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "reserved": 3,
+        "warehouse": "W-1"
+      },
+      "error": null
+    },
+    "charge": {
+      "status": "DONE",
+      "attempts": 2,
+      "output": {
+        "charged": 1450.0,
+        "txn": "TX42180"
+      },
+      "error": null
+    },
+    "fraud_review": {
+      "status": "DONE",
+      "attempts": 0,
+      "output": {
+        "approved": true,
+        "by": "manual"
+      },
+      "error": null
+    },
+    "ship": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "tracking": "TRK394821",
+        "carrier": "FastShip"
+      },
+      "error": null
+    },
+    "notify": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "sent": true,
+        "message": "Your order shipped: TRK394821"
+      },
+      "error": null
+    }
+  }
+}

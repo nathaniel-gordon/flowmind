@@ -1,0 +1,54 @@
+{
+  "workflow": "data-pipeline",
+  "steps": {
+    "extract": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "rows": 1000,
+        "bad_rows": 40
+      },
+      "error": null
+    },
+    "profile": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "bad_pct": 4.0,
+        "quality_ok": true
+      },
+      "error": null
+    },
+    "quarantine": {
+      "status": "SKIPPED",
+      "attempts": 0,
+      "output": null,
+      "error": "condition not met: steps.profile.output.quality_ok == False"
+    },
+    "load": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "loaded": 960,
+        "table": "analytics.orders"
+      },
+      "error": null
+    },
+    "summarize": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "summary": "[agent] summarize the pipeline outcome for the data team -> load: {'loaded': 960, 'table': 'analytics.orders'}"
+      },
+      "error": null
+    },
+    "report": {
+      "status": "DONE",
+      "attempts": 1,
+      "output": {
+        "report": "pipeline finished, 960 rows loaded"
+      },
+      "error": null
+    }
+  }
+}
