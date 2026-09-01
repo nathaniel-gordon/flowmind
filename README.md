@@ -1,45 +1,32 @@
-# FlowMind — Agentic Workflow Orchestration Engine
+# FlowMind — Actor-Model Agentic Workflow & Saga Orchestration
 
-> Build multi-step AI workflows as composable actors. FlowMind provides an actor-model runtime where agents exchange typed messages through mailboxes, enabling fault-isolated, auditable, and parallelizable agentic pipelines.
+FlowMind is an agentic workflow execution engine built on the **Actor Model**. Workflow steps execute as isolated message-driven actors communicating strictly via asynchronous mailboxes. This architecture provides deterministic scheduling, dynamic branching, retry policies, and automated compensation sagas for multi-agent systems.
 
-## What FlowMind Does
+## Architectural Advantages
 
-- **Actor runtime** — each agent is an isolated actor with its own mailbox and state
-- **Typed message passing** — strongly typed inter-agent communication prevents silent failures
-- **DAG scheduler** — dependency-aware task ordering with parallel execution
-- **Audit log** — full message trace for every workflow run, replayable
-- **Retry & compensation** — saga-pattern rollback on partial failures
+- **State Isolation**: Actors maintain encapsulated private state; no shared-memory race conditions during concurrent agent tool executions.
+- **Deterministic Scheduling**: Message mailboxes support priority queues and pause-and-resume execution checkpoints.
+- **Compensation Sagas**: When a multi-step workflow fails midway (e.g. database update fails after cloud resource provisioning), FlowMind unwinds the DAG in reverse order, executing registered rollback actions.
+- **Mermaid DAG Export**: Workflows automatically serialize to standard Mermaid flowchart diagrams.
 
-## Architecture
+## Topology Example
 
 ```
-WorkflowDefinition (Python DSL)
-    └─> ActorRegistry      (spawn, supervise, route)
-    └─> Mailbox            (async typed message queues)
-    └─> Scheduler          (DAG topological ordering)
-    └─> AuditLogger        (append-only execution trace)
-    └─> SagaCoordinator    (rollback on failure)
+[Trigger] ──► [Planner Actor] ──► [Parallel Researcher Actors]
+                                            │
+                                            ▼
+[Notifier] ◄── [Compensation Saga] ◄── [Aggregator Actor]
 ```
 
-## Quickstart
+## Usage
 
 ```bash
-python examples/build_workflow.py   # build and run a sample agentic DAG
+# Run sample workflow pipeline with execution trace export
+python -m wfe --run-sample --export-mermaid
 ```
 
-## Test
+## Tests
 
 ```bash
-python tests/test_smoke.py
+pytest tests/ -v
 ```
-
----
-
-## 👤 Author & Contact
-
-- **Author**: Nathaniel Gordon
-- **Role**: Senior AI & Machine Learning Engineer
-- **GitHub**: [github.com/nathaniel-gordon](https://github.com/nathaniel-gordon)
-- **Portfolio / Upwork**: [upwork.com/freelancers/~015fe5a704f8943797](https://www.upwork.com/freelancers/~015fe5a704f8943797)
-- **Email**: nathanielgordon346@gmail.com
-- **Location**: Tallahassee, FL, USA
